@@ -6,38 +6,7 @@ import TodoDisplay from './components/TodoDisplay.vue';
 export default {
   data() {
     return {
-      todos: [
-        {
-          id: 1,
-          text: 'Complete online JavaScript course',
-          isChecked: true
-        },
-        {
-          id: 1,
-          text: 'Jog around the park 3x',
-          isChecked: false
-        },
-        {
-          id: 1,
-          text: '10 minutes meditation',
-          isChecked: false
-        },
-        {
-          id: 1,
-          text: 'Read for 1 hour',
-          isChecked: false
-        },
-        {
-          id: 1,
-          text: 'Pick up groceries',
-          isChecked: false
-        },
-        {
-          id: 1,
-          text: 'Complete Todo App on Frontend Mentor',
-          isChecked: false
-        },
-      ],
+      todos: [],
       filter: 'all',
       isLightTheme: false
     }
@@ -97,7 +66,7 @@ export default {
     if (theme == 'true') this.isLightTheme = theme;
 
     const todos = localStorage.getItem('todos');
-    if (todos.length) this.todos = JSON.parse(todos);
+    if (todos) this.todos = JSON.parse(todos);
   }
 }
 </script>
