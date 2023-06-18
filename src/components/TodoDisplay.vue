@@ -1,16 +1,6 @@
 <script>
 export default {
-    props: ['todos'],
-    data() {
-        return {
-            
-        }
-    },
-    methods: {
-        getAll() {},
-        getChecked() {},
-        getUnchecked() {}
-    }
+    props: ['todos','filter'],
 }
 </script>
 
@@ -18,7 +8,7 @@ export default {
     <div v-if="todos.length" class="container">
         <section class="todos-box">
             <!-- todos -->
-            <transition-group tag="ul" name="list" class="todos-box__todos">
+            <ul class="todos-box__todos">
                 <li
                   v-for="todo in todos"
                   :class="{checked: todo.isChecked}"
@@ -30,14 +20,14 @@ export default {
                         <img src="../assets/icon-cross.svg">
                     </button>
                 </li>
-            </transition-group>
+            </ul>
             <!-- settings -->
             <div class="todos-box__settings">
                 <p class="subtitle">{{ todos.filter(todo => todo.isChecked == false).length }} items left</p>
                 <p class="filters">
-                    <button class="active">All</button>
-                    <button>Active</button>
-                    <button>Completed</button>
+                    <button @click="$emit('setFilter', 'all')" :class="{active: filter=='all'}">All</button>
+                    <button @click="$emit('setFilter', 'active')" :class="{active: filter=='active'}">Active</button>
+                    <button @click="$emit('setFilter', 'checked')" :class="{active: filter=='checked'}">Completed</button>
                 </p>
                 <button @click="$emit('deleteChecked')">Clear completed</button>
             </div>
@@ -243,18 +233,18 @@ main.light {
 }
 
 // transitions
-.list-move,
-.list-enter-active,
-.list-leave-active {
-  transition: all 300ms ease-in-out !important;
-}
+// .list-move,
+// .list-enter-active,
+// .list-leave-active {
+//   transition: all 300ms ease-in-out !important;
+// }
 
-.list-enter-from,
-.list-leave-to {
-  opacity: 0;
-  transform: translateX(60px);
-}
-.list-leave-active {
-  position: absolute;
-}
+// .list-enter-from,
+// .list-leave-to {
+//   opacity: 0;
+//   transform: translateX(60px);
+// }
+// .list-leave-active {
+//   position: absolute;
+// }
 </style>

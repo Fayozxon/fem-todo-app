@@ -6,8 +6,57 @@ import TodoDisplay from './components/TodoDisplay.vue';
 export default {
   data() {
     return {
-      todos: [],
+      todos: [
+        {
+          id: 1,
+          text: 'Complete online JavaScript course',
+          isChecked: true
+        },
+        {
+          id: 1,
+          text: 'Jog around the park 3x',
+          isChecked: false
+        },
+        {
+          id: 1,
+          text: '10 minutes meditation',
+          isChecked: false
+        },
+        {
+          id: 1,
+          text: 'Read for 1 hour',
+          isChecked: false
+        },
+        {
+          id: 1,
+          text: 'Pick up groceries',
+          isChecked: false
+        },
+        {
+          id: 1,
+          text: 'Complete Todo App on Frontend Mentor',
+          isChecked: false
+        },
+      ],
+      filter: 'all',
       isLightTheme: false
+    }
+  },
+  computed: {
+    todosFiltered() {
+      if (this.filter == 'active') {
+        const todos = this.todos.filter(todo => !todo.isChecked);
+        if (todos.length) {
+          return todos;
+        }
+      } else if (this.filter == 'checked') {
+        const todos = this.todos.filter(todo => todo.isChecked);
+        if (todos.length) {
+          return todos;
+        }
+      }
+      this.setFilter('all');
+      return this.todos;
     }
   },
   components: {Header, TodoInput, TodoDisplay},
@@ -38,6 +87,9 @@ export default {
         }
       });
       this.setToLocalStorage();
+    },
+    setFilter(filter) {
+      this.filter = filter;
     }
   },
   mounted() {
@@ -59,10 +111,12 @@ export default {
     <TodoInput @addTodo="addTodo"></TodoInput>
 
     <TodoDisplay
-      :todos="todos"
+      :todos="todosFiltered"
       @deleteTodo="deleteTodo"
       @checkTodo="checkTodo"
       @deleteChecked="deleteChecked"
+      :filter="filter"
+      @setFilter="setFilter"
     ></TodoDisplay>
 
   </main>
