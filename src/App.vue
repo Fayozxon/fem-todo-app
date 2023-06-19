@@ -26,6 +26,9 @@ export default {
       }
       this.setFilter('all');
       return this.todos;
+    },
+    todosNotChecked() {
+      return this.todos.filter(todo => todo.isChecked == false).length;
     }
   },
   components: {Header, TodoInput, TodoDisplay},
@@ -86,6 +89,7 @@ export default {
       @deleteChecked="deleteChecked"
       :filter="filter"
       @setFilter="setFilter"
+      :todosNotChecked="todosNotChecked"
     ></TodoDisplay>
 
   </main>

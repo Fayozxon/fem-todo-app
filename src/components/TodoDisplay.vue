@@ -1,6 +1,6 @@
 <script>
 export default {
-    props: ['todos','filter'],
+    props: ['todos','filter','todosNotChecked'],
 }
 </script>
 
@@ -8,7 +8,7 @@ export default {
     <div v-if="todos.length" class="container">
         <section class="todos-box">
             <!-- todos -->
-            <ul class="todos-box__todos">
+            <ul class="todos-box__todos" dropzone="true">
                 <li
                   v-for="todo in todos"
                   :class="{checked: todo.isChecked}"
@@ -23,7 +23,7 @@ export default {
             </ul>
             <!-- settings -->
             <div class="todos-box__settings">
-                <p class="subtitle">{{ todos.filter(todo => todo.isChecked == false).length }} items left</p>
+                <p class="subtitle">{{ todosNotChecked }} items left</p>
                 <p class="filters">
                     <button @click="$emit('setFilter', 'all')" :class="{active: filter=='all'}">All</button>
                     <button @click="$emit('setFilter', 'active')" :class="{active: filter=='active'}">Active</button>
@@ -32,10 +32,6 @@ export default {
                 <button @click="$emit('deleteChecked')">Clear completed</button>
             </div>
         </section>
-        <!-- info -->
-        <p class="info">
-            Drag and drop to reoder list
-        </p>
     </div>
 </template>
 
